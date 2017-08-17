@@ -1,0 +1,14 @@
+.hm_table {
+  border-collapse: collapse;
+  width: 400px;
+  border: 1px solid bisque;
+  text-align: center;
+}
+
+.hm_table thead {
+  background-color: aqua;
+}
+
+.hm_table td, .hm_table th {
+  border: 1px solid bisque;
+}
