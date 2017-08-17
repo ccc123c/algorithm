@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  function arrCount(arr) {//记录数组中每个元素出现的次数，如果arr为字符串，则记录每个字符出现的次数
+    var obj = {};
+    for (var i = 0; i < arr.length; i++) {
+      if (obj[arr[i]] == undefined) {
+        obj[arr[i]] = 1;
+      } else {
+        obj[arr[i]]++;
+      }
+    }
+    return obj;
+  }
+  function unique(arr, num) {//求数组中第num大的数
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (newArr.indexOf(arr[i]) == -1) {
+        newArr.push(arr[i]);
+      }
+    }
+    var a = newArr.sort(function (a, b) {
+      return a - b;
+    });
+    return a[num - 1];
+  }
+  function threeOfArray(arr) {
+    var count=0;
+    arr.sort(function (a,b) {
+      return a-b;
+    });
+    var max=arr[0];
+   for(var i=1;i<arr.length;i++){
+     if(max!=arr[i]){
+       max=arr[i];
+       count++;
+       if(count==2){
+         return max;
+       }
+     }
+   }
+  }
+
+  var array = ["a", "b", "c", "c", "d"];
+  var arr1="aadddssss";
+//  console.log(arrCount(arr1));
+//  console.log(arrCount(array));
+  var arr = [10, 13, 10, 5, 5, 13, 14, 13];
+  console.log(unique(arr, 3));
+  console.log(threeOfArray(arr));
+</script>
+</body>
+</html>
