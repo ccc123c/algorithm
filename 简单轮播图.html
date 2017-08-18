@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #box {
+      width: 520px;
+      height: 280px;
+      position: relative;
+      margin: 100px auto;
+      overflow: hidden;
+    }
+
+    ul {
+      width: 1000%;
+      position: absolute;
+    }
+
+    li {
+      list-style: none;
+      float: left;
+    }
+
+    .nav {
+      position: absolute;
+      left: 310px;
+      top: 245px;
+    }
+
+    span {
+      display: block;
+      background-color: white;
+      height: 20px;
+      width: 30px;
+      text-align: center;
+      line-height: 20px;
+      float: left;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      var ul = document.getElementsByTagName("ul")[0];
+      var nav = document.getElementsByClassName("nav")[0];
+      var spans = nav.getElementsByTagName("span");
+      for (var i = 0; i < spans.length; i++) {
+        spans[i].index = i;
+        spans[i].onclick = function () {
+          for (var j = 0; j < spans.length; j++) {
+            spans[j].style.backgroundColor = "white";
+          }
+          this.style.backgroundColor = "red";
+//          ul.style.left = -520 * (this.index);
+          var target=-520 * (this.index);
+          move(ul,target,40);
+        };
+      }
+      function move(ele, target, speed) {
+        clearInterval(ele.timer);
+        var speed = target > ele.offsetLeft ? speed : -speed;
+        ele.timer = setInterval(function () {
+          var val = target - ele.offsetLeft;
+          ele.style.left = ele.offsetLeft + speed + "px";
+          if (Math.abs(val) < Math.abs(speed)) {
+            ele.style.left = target + "px";
+            clearInterval(ele.timer);
+          }
+        }, 30);
+
+      }
+    };
+  </script>
+</head>
+<body>
+<div id="box">
+  <ul>
+    <li><img src="images/1.jpg" alt=""></li>
+    <li><img src="images/2.jpg" alt=""></li>
+    <li><img src="images/3.jpg" alt=""></li>
+    <li><img src="images/4.jpg" alt=""></li>
+    <li><img src="images/5.jpg" alt=""></li>
+  </ul>
+  <div class="nav">
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+  </div>
+</div>
+</body>
+</html>
