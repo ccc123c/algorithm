@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    table {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<button id="btn">点击抽取名字</button>
+<button id="btn1">停止</button>
+<script>
+  var data = [
+    ["易烊千玺1", "易烊千玺1", "我", "易烊千玺1", "易烊千玺1", "易烊千玺1", "@", "易烊千玺1"],
+    ["易烊千玺2", "易烊千玺2", "@", "易烊千玺2", "易烊千玺2", "易烊千玺2", "@", "易烊千玺2"],
+    ["易烊千玺3", "易烊千玺3", "易烊千玺3", "易烊千玺3", "易烊千玺3", "易烊千玺3", "易烊千玺3", "易烊千玺3"]];
+  var btn = document.getElementById('btn');
+  var table = document.createElement('table');
+  var btn1=document.getElementById('btn1');
+  var timer=null;
+  document.body.appendChild(table);
+  var newArr = [];
+  for (var i = 0; i < data.length; i++) {
+    var tr = document.createElement('tr');
+    for (var j = 0; j < data[i].length; j++) {
+      var td = document.createElement('td');
+      tr.appendChild(td);
+      if (data[i][j] != "@") {
+        td.innerHTML = data[i][j];
+        td.style.backgroundColor = "red";
+        if (data[i][j] != "我") {
+          newArr.push(td);
+        }
+      }
+    }
+    table.appendChild(tr);
+  }
+  btn.onclick=function () {
+    if(timer){
+      clearInterval(timer);
+    }
+    timer=setInterval(function () {
+      for(var i=0;i<newArr.length;i++){
+        newArr[i].style.backgroundColor="red";
+      }
+      var random=Math.floor(Math.random()*newArr.length);
+      newArr[random].style.backgroundColor="green";
+    },100);
+  }
+  btn1.onclick=function () {
+    clearInterval(timer);
+  };
+</script>
+</body>
+</html>

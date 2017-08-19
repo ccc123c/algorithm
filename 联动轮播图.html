@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #box {
+      width: 520px;
+      height: 280px;
+      position: relative;
+      margin: 100px auto;
+      overflow: hidden;
+    }
+
+    ul {
+      width: 1000%;
+      position: absolute;
+    }
+
+    li {
+      list-style: none;
+      float: left;
+    }
+
+    .arrows {
+      display: none;
+    }
+
+    .arrows span {
+      position: absolute;
+      top: 50%;
+      margin-top: -20px;
+      background-color: rgba(0, 0, 0, 0.2);
+      color: white;
+      width: 30px;
+      height: 40px;
+      font-size: 24px;
+      text-align: center;
+      line-height: 40px;
+      cursor: pointer;
+    }
+
+    .left-arrow {
+      left: 5px;
+    }
+
+    .right-arrow {
+      right: 5px;
+    }
+
+    .circle {
+      position: absolute;
+      height: 30px;
+      width: 150px;
+      border-radius: 10px;
+      background-color: rgba(68, 68, 63, 0.5);
+      right: 50%;
+      margin-right: -75px;
+      top: 245px;
+      padding-left: 10px;
+      box-sizing: border-box;
+    }
+
+    .circle span {
+      display: block;
+      float: left;
+      width: 15px;
+      height: 15px;
+      margin: 5px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    /*.circle span:hover{*/
+    /*background-color:rgba(255,0,0,.6);*/
+    /*}*/
+  </style>
+  <script src="js/move.js"></script>
+  <script>
+    window.onload = function () {
+      var ul = document.getElementsByTagName("ul")[0];
+      var arrows = document.getElementsByClassName("arrows")[0];
+      var leftArrow = document.getElementsByClassName("left-arrow")[0];
+      var rightArrow = document.getElementsByClassName("right-arrow")[0];
+      var circle = document.getElementsByClassName("circle")[0];
+      var box = document.getElementById('box');
+      var imgWidth = box.offsetWidth;
+      var count = 0;
+      var autoTimer;
+      //按钮滚动
+      for (var i = 0; i < circle.children.length; i++) {
+        circle.children[i].index = i;
+        circle.children[i].onclick = function () {
+          for (var j = 0; j < circle.children.length; j++) {
+            circle.children[j].style.backgroundColor = "rgba(255, 255, 255, .8)";
+          }
+          this.style.backgroundColor = "rgba(255,0,0,.6)";
+          var target = -this.index * imgWidth;
+          move(ul, target, 100);
+          count = this.index;//用来同步按钮
+        };
+      }
+      //左箭头
+      leftArrow.onclick = function () {
+        if (count <= 0) {
+          count = ul.children.length - 1;
+          ul.style.left = -count * imgWidth + "px";
+        }
+        count--;
+        var target = -count * imgWidth;
+        move(ul, target, 100);
+        //同步按钮
+        for (var j = 0; j < circle.children.length; j++) {
+          circle.children[j].style.backgroundColor = "rgba(255, 255, 255, 1)";
+        }
+        if (count <0) {
+          circle.children[ ul.children.length - 1].style.backgroundColor = "rgba(255,0,0,.6)";
+        }
+        else
+         {
+          circle.children[count].style.backgroundColor = "rgba(255,0,0,.6)";
+        }
+      };
+      //右箭头
+      rightArrow.onclick = function () {
+        if (count >= ul.children.length - 1) {
+          count = 0;
+          ul.style.left = 0;
+        }
+        count++;
+        var target = -count * imgWidth;
+        move(ul, target, 100);
+        //同步按钮
+        for (var j = 0; j < circle.children.length; j++) {
+          circle.children[j].style.backgroundColor = "rgba(255, 255, 255, 1)";
+        }
+        if (count >= ul.children.length - 1) {
+          circle.children[0].style.backgroundColor = "rgba(255,0,0,.6)";
+        } else {
+          circle.children[count].style.backgroundColor = "rgba(255,0,0,.6)";
+        }
+      };
+
+      //自动播放
+      box.onmouseover = function () {
+        arrows.style.display = "block";
+        clearInterval(autoTimer);
+      };
+      box.onmouseout = function () {
+        arrows.style.display = "none";
+        autoTimer = setInterval(function () {
+          rightArrow.onclick();
+        }, 2000);
+      };
+      autoTimer = setInterval(function () {
+        rightArrow.onclick();
+      }, 2000);
+    };
+  </script>
+</head>
+<body>
+<div id="box">
+  <ul>
+    <li><img src="images/1.jpg" alt=""></li>
+    <li><img src="images/2.jpg" alt=""></li>
+    <li><img src="images/3.jpg" alt=""></li>
+    <li><img src="images/4.jpg" alt=""></li>
+    <li><img src="images/5.jpg" alt=""></li>
+    <li><img src="images/1.jpg" alt=""></li>
+  </ul>
+  <div class="arrows">
+    <span class="left-arrow">&lt;</span>
+    <span class="right-arrow">&gt;</span>
+  </div>
+  <div class="circle">
+    <span style="background-color: rgba(255,0,0,.6);"></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+</body>
+</html>
