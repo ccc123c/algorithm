@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      height: 7573px;
+      width: 100%;
+      background: url("images/box.png") no-repeat center;
+    }
+
+    .nav {
+      width: 100%;
+      height: 45px;
+      background: url("images/r1.png") no-repeat center;
+      position: fixed;
+    }
+
+    .left-advert, .right-advert {
+      position: absolute;
+      top: 200px;
+      width: 120px;
+      height: 288px;
+    }
+
+    .left-advert {
+      left: 0;
+      background: url("images/r2_c2.png") no-repeat;
+    }
+
+    .right-advert {
+      right: 0;
+      background: url("images/r2_c1.png") no-repeat;
+    }
+
+    .toTop {
+      height: 50px;
+      width: 50px;
+      background: url("images/20150717215921.png") no-repeat;
+      position: fixed;
+      display: none;
+      right: 20px;
+      bottom: 50px;
+    }
+  </style>
+  <script src="js/scroll.js"></script>
+  <script src="js/animate.js"></script>
+</head>
+<body>
+<div class="box">
+  <div class="nav"></div>
+  <div class="left-advert"></div>
+  <div class="right-advert"></div>
+  <div class="toTop"></div>
+</div>
+<script>
+  var toTop = document.getElementsByClassName("toTop")[0];
+  window.onscroll = function () {
+    var leftAdvert = document.getElementsByClassName("left-advert")[0];
+    var rightAdvert = document.getElementsByClassName("right-advert")[0];
+    var val = scroll().top;
+
+    animate(leftAdvert, val + 200);
+    animate(rightAdvert, val + 200);
+    if (scroll().top > 500) {
+      toTop.style.display = "block";
+    } else {
+      toTop.style.display = "none";
+    }
+    leader=scroll().top;
+  };
+  var target = 0;//目标位置
+  var leader = 0;//  当前位置
+
+  var timer;
+  toTop.onclick = function () {
+//    window.scrollTo(0,0);
+    clearInterval(timer);
+    timer = setInterval(function () {
+      var speed = (target - leader) / 10;
+      speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+      leader = leader + speed;
+      window.scrollTo(0, leader);
+      if (leader === 0) {
+        clearInterval(timer);
+      }
+    }, 50);
+  };
+
+
+</script>
+</body>
+</html>
