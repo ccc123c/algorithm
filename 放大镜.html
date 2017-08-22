@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 350px;
+      height: 350px;
+      margin: 100px;
+      border: 1px solid #ccc;
+      position: relative;
+    }
+
+    .big {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      top: 0;
+      left: 360px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      display: block;
+    }
+
+    .mask {
+      width: 175px;
+      height: 175px;
+      background: rgba(255, 255, 0, 0.4);
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: move;
+      display: none;
+    }
+
+    .small {
+      position: relative;
+    }
+
+    .box img {
+      vertical-align: top;
+    }
+
+    #bigBox img {
+      position: absolute;
+    }
+  </style>
+  <script src="common.js"></script>
+</head>
+<body>
+<div class="box" id="box">
+  <div id="smallBox" class="small">
+    <img src="img/small.jpg" width="350" alt=""/>
+    <div id="mask" class="mask"></div>
+  </div>
+  <div id="bigBox" class="big">
+    <img src="img/big.jpg" width="800" id="bigImg" alt=""/>
+  </div>
+</div>
+<script>
+  var box = document.getElementById('box');
+  var smallBox = document.getElementById('smallBox');
+  var bigBox = document.getElementById('bigBox');
+  var mask = document.getElementById('mask');
+  var bigImg=bigBox.getElementsByTagName("img")[0];
+  var smallImg=smallBox.getElementsByTagName("img")[0];
+  smallBox.onmouseover = function () {
+    bigBox.style.display = "block";
+    mask.style.display = "block";
+  }
+  smallBox.onmouseout = function () {
+    bigBox.style.display = "none";
+    mask.style.display = "none";
+  }
+  smallBox.onmousemove = function (e) {
+    e = e || window.event;
+    //鼠标在盒子内的距离
+    var pageX = getPage(e).x - box.offsetLeft;
+    var pageY = getPage(e).y - box.offsetTop;
+//    console.log("x=="+pageX+",y=="+pageY);
+    //让鼠标在盒子mask的中间
+    var maskWidth = mask.offsetWidth / 2;
+    var maskHeight = mask.offsetHeight / 2;
+    //不减去盒子mask的宽高的一半，鼠标会在mask的左上角
+    //减去之后，鼠标会在正中间
+    var x = pageX - maskWidth;
+    var y = pageY - maskHeight;
+    /*
+     因为鼠标一直在mask里面，而mask是smallbox的子元素，
+     所以当mask超出smallbox的时候，mask的display不会变为none，
+     所以这里要判断一下边界，让mask一直在smallbox里面
+     */
+    if (x < 0) {
+      x = 0;
+    }
+    if (y < 0) {
+      y = 0;
+    }
+    if (x > (smallBox.offsetWidth - mask.offsetWidth)) {
+      x = smallBox.offsetWidth - mask.offsetWidth;
+    }
+    if (y > (smallBox.offsetHeight - mask.offsetHeight)) {
+      y = smallBox.offsetHeight - mask.offsetHeight;
+    }
+    mask.style.left = x + "px";
+    mask.style.top = y + "px";
+    //算的时候要用两个图片的宽高做比例，不能用盒子的
+    bigImg.style.left = -(bigImg.offsetWidth/smallImg.offsetWidth)*x+"px";
+    bigImg.style.top = -(bigImg.offsetHeight/smallImg.offsetHeight)*y+"px";
+  }
+</script>
+</body>
+</html>

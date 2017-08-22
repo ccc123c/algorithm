@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      height: 100%;
+    }
+
+    ul {
+      list-style: none;
+      height: 100%;
+    }
+
+    ol {
+      list-style: none;
+      position: fixed;
+      top: 200px;
+      left: 10px;
+    }
+
+    ul li {
+      height: 100%;
+    }
+
+    ol li {
+      height: 50px;
+      width: 50px;
+      border: 1px solid green;
+      text-align: center;
+      line-height: 50px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<ul>
+  <li>鞋子区域</li>
+  <li>袜子区域</li>
+  <li>裤子区域</li>
+  <li>短袖区域</li>
+</ul>
+<ol>
+  <li>鞋子</li>
+  <li>袜子</li>
+  <li>裤子</li>
+  <li>短袖</li>
+</ol>
+<script>
+  //点击ol中的li,滑动到ul中对应的li范围
+  //指定ul,ol中li的背景色
+  var ul = document.getElementsByTagName("ul")[0];
+  var ol = document.getElementsByTagName("ol")[0];
+  var ulLis = ul.getElementsByTagName("li");
+  var olLis = ol.getElementsByTagName("li");
+  var target = 0;
+  var leader = 0;
+  var timer = null;
+  //设置一个数组专门装颜色
+  var color = ["pink", "blue", "yellow", "red"];
+  for (var i = 0; i < ulLis.length; i++) {
+    ulLis[i].style.backgroundColor = color[i];
+    olLis[i].style.backgroundColor = color[i];
+    olLis[i].index=i;
+    olLis[i].onclick = function () {
+      //利用缓动动画让屏幕滑动到指定位置
+      /*
+       * 1.获取步长
+       * 2.二次处理步长
+       * 3.屏幕滑动
+       * 4.清楚定时器
+       */
+      clearInterval(timer);
+      target=ulLis[this.index].offsetTop;
+      timer = setInterval(function () {
+        var step = (target - leader)/10;
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+        leader += step;
+        window.scrollTo(0,leader);
+        if (target === leader) {
+          clearInterval(timer);
+        }
+      }, 30);
+    }
+  }
+    window.onscroll=function () {
+      leader=scroll().top;
+    };
+  function scroll() {
+    return {
+      "top": window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop,
+      "left": window.pageXOffset || document.body.scrollLeft || document.documentElement.scrollLeft
+    }
+  }
+</script>
+</body>
+</html>
