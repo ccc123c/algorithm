@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+      font-family: "微软雅黑";
+    }
+
+    .box {
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, .2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content {
+      background-color: rgba(0, 0, 0, .5);
+      height: 60px;
+      width: 100%;
+      bottom: 0;
+      position: absolute;
+    }
+
+    .center {
+      text-align: center;
+      line-height: 60px;
+    }
+
+    .center span {
+      color: white;
+      font-size: 24px;
+      vertical-align: bottom;
+    }
+
+    #txt1 {
+      height: 30px;
+      width: 300px;
+      border:none;
+      border-radius: 5px;
+    }
+    #btn{
+      height: 30px;
+      width: 60px;
+      background: #f90000;
+      border: none;
+      color: #fff;
+    }
+    .danmu{
+    width: 300px;
+    height: 40px;
+    position: absolute;
+    overflow: hidden;
+    color: #000;
+    line-height: 40px;
+    cursor: pointer;
+    white-space: nowrap;
+    }
+  </style>
+  <script src="animation.js"></script>
+  <script>
+    window.onload=function () {
+      var box=document.getElementsByClassName("box")[0];
+      var txt1=document.getElementById('txt1');
+      var btn=document.getElementById('btn');
+      var colors=["pink","green","yellow","blue","skyblue","purple","white","red","skyblue"];
+      btn.onclick=function () {
+        if(txt1.value.trim().length==0){
+          return;
+        }
+        var span=document.createElement('span');
+        span.innerHTML=txt1.value;
+        box.appendChild(span);
+        span.className="danmu";
+        var colorsRandom=Math.floor(Math.random()*colors.length);
+        span.style.color=colors[colorsRandom];
+        //设置span的位置
+        span.style.left=document.body.offsetWidth+"px";
+        span.style.top=parseInt(Math.random()*300)+"px";
+        animate(span,-span.offsetWidth,25,function () {
+          box.removeChild(span);
+        });
+        txt1.value="";
+
+      };
+      window.onkeyup=function (e) {
+        e=e||window.event;
+        if(e.keyCode==13){
+          btn.click();
+        }
+      };
+    };
+
+  </script>
+</head>
+<body>
+<div class="box">
+  <div class="content">
+    <div class="center">
+      <span>吐槽:</span><input type="text" id="txt1"/>
+      <input type="button" value="发射" id="btn"/>
+    </div>
+  </div>
+</div>
+</body>
+</html>
