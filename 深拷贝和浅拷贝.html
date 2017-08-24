@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  //浅拷贝，不考虑对象中引用类型的属性
+//    var dog={
+  //      name:"大白",
+  //      type:"big white dog",
+  //      bark:function () {
+  //        console.log("正在汪汪汪!!!");
+  //      },
+  //      son:{
+  //        name:"小白"
+  //      }
+  //    };
+  //    var dog1={};
+  //    for(var k in dog){
+  //      dog1[k]=dog[k];
+  //    }
+  //    console.log(dog1.name);//大白
+  //    dog1.name="大白白";
+  //    console.log(dog1.name);//大白白
+  //    console.log(dog.name);//大白
+  //    dog1.son.name="小黑";
+  //    console.log(dog1.son.name);//小黑
+  //    console.log(dog.son.name);//小黑
+  //深拷贝：将对象中的属性赋值一份交给新的对象，如果属性值是引用类型的值，那么也要将该引用类型的属性拷贝一份，最终达到的效果，就是拷贝出来的对象和原来的对象没有一点点关系，两者互不影响！
+
+  var dog = {
+    name: "大白",
+    type: "big white dog",
+    bark: function () {
+      console.log("正在汪汪汪!!!");
+    },
+    son: {
+      name: "小白"
+    }
+  };
+  var dog1 = {};
+  for (var k in dog) {
+    if(typeof dog[k]=="object"){
+      var temp={};
+      for(var j in dog[k]){
+        temp[j]=dog[k][j];
+      }
+      dog1[k]=temp;
+    }else{
+      dog1[k]=dog[k];
+    }
+  }
+  dog1.bark=function () {
+    console.log("汪汪");
+  };
+  dog.bark();//正在汪汪汪!!!
+  console.log(dog1.son.name);//小白
+  dog1.son.name="小黑";
+  console.log(dog1.son.name);//小黑
+  console.log(dog.son.name);//小白
+</script>
+</body>
+</html>

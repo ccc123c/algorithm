@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  //继承
+  var father={
+    name:"张三",
+    age:18,
+    money:100
+  }
+//  var son=father;//赋值之后修改一个变量，另一个变量的值也会随着改变
+//  console.log(father.age);//18
+//  son.age=19;
+//  console.log(son.age);//19
+//  console.log(father.age);//19
+   var son={};
+  //混入式继承
+  for(var k in father){
+    son[k]=father[k];
+  }
+  //继承之后修改son的属性值跟父类就没有关系了
+  console.log(son.age);//18
+  son.age=19;
+  console.log(son.age);//19
+  console.log(father.age);//18
+</script>
+</body>
+</html>
