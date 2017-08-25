@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  console.log([] == ![]);//true
+  console.log({} == !{});//false
+  console.log({} == {});//false
+  console.log([] == []);//false
+  console.log({} +1);//[object Object]1
+  console.log({} ==1);//false
+  console.log([]+1);//1
+  console.log("11"==1);//false
+  console.log("1"==1);//true
+  console.log(!!{}==true);//true
+</script>
+</body>
+</html>
