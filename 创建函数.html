@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  //  //1.直接声明
+  //  function test() {
+  //    console.log("哈哈哈哈哈");
+  //  }
+  //  test();
+  //  //2.函数表达式
+  //  var test1 = function () {
+  //    console.log("嘿嘿嘿嘿嘿");
+  //  }
+  //  test1();
+  //3.new Function
+  //  var test2 = new Function("a", "b", "return a+b");
+  //  console.log(test2(2, 3));
+  //  //利用Function创建一个求三个数中的最大数的函数
+  //  var test3 = new Function("a", "b", "c", "return (a>b?a:b)>c?(a>b?a:b):c");
+  //  console.log(test3(2, 3, 1));
+  //传入一个数组，求这个数组的最大数
+//  var max = new Function("arr",
+//      "var maxNum=arr[0];" +
+//      "for(var i=1;i<arr.length;i++){" +
+//      "if(maxNum<arr[i]){" +
+//      "maxNum=arr[i];" +
+//      "}" +
+//      "}" +
+//      "return maxNum;"
+//  );
+//  console.log(max([2, 24, 3, 2, 4]));
+//  window.onload=function () {
+//    var script=document.getElementById('funContent');
+//    var str=script.innerHTML;
+//    var max=new Function("arr",str);
+//    console.log(max([26, 24, 3, 2, 4]));
+//  }
+  //利用Function创建一个函数，要求允许函数调用时传入任意多个参数，
+  //并且函数返回这些参数中的最大数
+  //给函数传入任意多个参数，在函数内进行去重操作，然后返回去重后的数组
+  var test=new Function(
+      `var a=[];
+  for(var i=0;i<arguments.length;i++){
+    if(a.indexOf(arguments[i])==-1){
+      a.push(arguments[i]);
+    }
+  }
+  return a;`
+  );
+  console.log(test(2,2,2,44,32, 44, 32, 12, 67));
+</script>
+
+<script type="text/template" id="funContent">
+  //使用模版方式
+  var maxNum=arr[0];
+  for(var i=1;i<arr.length;i++){
+  if(maxNum<arr[i]){
+  maxNum=arr[i];
+  }
+  }
+  return maxNum;
+</script>
+</body>
+</html>
