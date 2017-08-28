@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div>我是div
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+</div>
+<div>我是div
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+</div>
+<div>我是div
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+  <p>我是p<span>我是span</span><span>我是span</span><span>我是span</span></p>
+</div>
+<script>
+//  1. 前n项和
+//function sum(n) {
+//  if(n==1){
+//    return 1;
+//  }else{
+//    return n+sum(n-1);
+//  }
+//}
+//console.log(sum(3));
+//  2. n的阶乘
+//function factorial(n) {
+//  if(n==1){
+//    return 1;
+//  }else{
+//    return n*factorial(n-1);
+//  }
+//}
+//console.log(factorial(4));
+//  3. n的m次方
+//function pow(n,m) {
+//  if(m==1){
+//    return n;
+//  }else{
+//    return n*pow(n,m-1);
+//  }
+//}
+//console.log(pow(2, 10));
+//  4. 获取后代元素
+//var a=document.body;
+//function getChild(ele,callback) {
+//  var child=ele.children;
+//  for(var i=0;i<child.length;i++){
+////    child[i].style.border="1px solid red";
+//    callback(child[i]);
+//    getChild(child[i],callback);
+//
+//  }
+//}
+//getChild(a,function (child) {
+//  child.style.border="1px solid green";
+//});
+//  5. 深拷贝
+function deepCopy(obj) {
+  var obj1={};
+  for(var k in obj){
+    if(typeof obj[k]=="object"){
+      obj1[k]=deepCopy(obj[k]);
+    }else{
+      obj1[k]=obj[k];
+    }
+  }
+  return obj1;
+}
+var person={
+  name:"lisi",
+  age:10,
+  work:{
+    area:"china",
+    time:"am"
+  }
+};
+  var s=deepCopy(person);
+console.log(s.work.time);//am
+  s.work.time="pm";
+console.log(s.work.time);//pm
+console.log(person.work.time);//am
+</script>
+</body>
+</html>
