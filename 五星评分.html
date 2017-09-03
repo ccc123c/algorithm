@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .comment {
+      font-size: 40px;
+      color: #ff16cf;
+    }
+
+    .comment li {
+      float: left;
+      font-family:'宋体';
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+    }
+  </style>
+
+</head>
+<body>
+<ul class="comment">
+  <li>☆</li>
+  <li>☆</li>
+  <li>☆</li>
+  <li>☆</li>
+  <li>☆</li>
+</ul>
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+  $(function () {
+    var current;
+    var wjx_k='☆';
+    var wjx_s='★';
+    $('li').mouseenter(function () {
+      $('li').text(wjx_k);
+      $(this).prevAll().andSelf().text(wjx_s);
+      console.log(current);
+    })
+    $('li').mouseleave(function () {
+      $('li').text(wjx_k);
+      if(current){
+        $('li').eq(current).prevAll().andSelf().text(wjx_s);
+      }else if(current==0){
+        $('li').eq(current).text(wjx_s);
+      }
+    })
+    $('li').click(function () {
+      current=$(this).index();
+    })
+  })
+</script>
+</body>
+</html>
